@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.com/huzergackl/node-red-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-time-switch) [![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-time-switch?branch=master)
+
+
 ## Node-RED Time Switch
 
 A simple Node-RED node that routes messages depending on the time. If the current time falls within the range specified
