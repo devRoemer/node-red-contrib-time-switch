@@ -11,7 +11,7 @@ in the node configuration, the message is routed to output 1. Otherwise the mess
  
 Change the directory to your node red installation:
 
-    $ npm install node-red-contrib-time-range-switch
+    $ npm install node-red-time-switch
  
 ### Configuration 
     
