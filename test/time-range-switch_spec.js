@@ -294,6 +294,34 @@ describe('time-range-switch', function() {
             result = node.isCurrentTimeWithinRange(start, end);
             result.should.be.false();
         });
+        it('should work with utc', function() {
+            const start = moment.utc(moment('2019-11-21 06:30'));
+            const end = moment('2019-11-21 03:30');
+
+            node.now = function() { return moment('2019-11-21 06:31'); };
+            let result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.true();
+
+            node.now = function() { return moment('2019-11-21 12:00'); };
+            result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.true();
+
+            node.now = function() { return moment('2019-11-21 00:00'); };
+            result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.true();
+
+            node.now = function() { return moment('2019-11-21 03:29'); };
+            result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.true();
+
+            node.now = function() { return moment('2019-11-21 06:29'); };
+            result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.false();
+
+            node.now = function() { return moment('2019-11-21 03:31'); };
+            result = node.isCurrentTimeWithinRange(start, end);
+            result.should.be.false();
+        });
     });
 
     describe('sendMessage', function() {

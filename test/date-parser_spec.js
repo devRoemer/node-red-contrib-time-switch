@@ -63,15 +63,15 @@ describe('date-parser', function() {
         });
         it('should parse dawn', function() {
             const result = DateParser.momentFor('dawn', time, 51.33411, -0.83716);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T07:53:00');
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T06:53:00');
         });
         it('should parse dusk', function() {
             const result = DateParser.momentFor('dusk', time, 51.33411, -0.83716);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T17:47:00');
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:47:00');
         });
         it('should parse goldenHour', function() {
             const result = DateParser.momentFor('goldenHour', time, 51.33411, -0.83716);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:14:00');
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T15:14:00');
         });
         it('should parse invalid name', function() {
             const result = DateParser.momentFor('invalidName', time, 51.33411, -0.83716);
