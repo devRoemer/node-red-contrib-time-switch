@@ -1,0 +1,69 @@
+{
+    "name": "node-red-time-switch",
+    "version": "1.0.0",
+    "description": "Routes messages depending on the current time.",
+    "main": "index.js",
+    "keywords": [
+        "node-red",
+        "router",
+        "switch",
+        "time",
+        "sun events"
+    ],
+    "scripts": {
+        "test": "nyc --reporter=html mocha"
+    },
+    "author": "@huzergackl",
+    "license": "MIT",
+    "dependencies": {
+        "moment": "^2.12.0",
+        "mustache": "^2.3.2",
+        "suncalc": "^1.7.0",
+        "twix": "^0.9.0"
+    },
+    "node-red": {
+        "nodes": {
+            "time-range-switch": "index.js"
+        }
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/huzergackl/node-red-time-switch"
+    },
+    "bugs": {
+        "url": "https://github.com/huzergackl/node-red-time-switch/issues"
+    },
+    "devDependencies": {
+        "eslint": "^5.1.0",
+        "eslint-config-biddster": "^0.6.0",
+        "eslint-config-prettier": "^2.9.0",
+        "mocha": "^5.2.0",
+        "node-red-contrib-mock-node": "^0.4.0",
+        "nyc": "^12.0.2",
+        "prettier": "^1.13.7",
+        "should": "^8.4.0"
+    },
+    "eslintConfig": {
+        "env": {
+            "es6": true,
+            "node": true,
+            "mocha": true
+        },
+        "parserOptions": {
+            "ecmaVersion": 6,
+            "sourceType": "module"
+        },
+        "extends": [
+            "eslint-config-biddster/es6-node",
+            "prettier"
+        ],
+        "rules": {
+            "linebreak-style": 0
+        }
+    },
+    "prettier": {
+        "singleQuote": true,
+        "tabWidth": 4,
+        "printWidth": 96
+    }
+}

@@ -1,0 +1,252 @@
+<!--
+The MIT License (MIT)
+
+Copyright (c) 2016 @biddster
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+-->
+
+<script type="text/javascript">
+    RED.nodes.registerType('time-switch', {
+        category: 'function',
+        color: '#e2d96e',
+        defaults: {
+            name: {
+                value: ''
+            },
+            lat: {
+                value: ''
+            },
+            lon: {
+                value: ''
+            },
+            startTime: {
+                value: '07:28'
+            },
+            endTime: {
+                value: 'goldenHour'
+            },
+            startOffset: {
+                value: 0
+            },
+            endOffset: {
+                value: 0
+            }
+        },
+        inputs: 1,
+        outputs: 2,
+		outputLabels: function(index) {
+            if (index === 0) return "within";
+            if (index === 1) return "outside";
+        },
+        icon: 'switch.png',
+        label: function () {
+            return this.name || this.startTime + ' - ' + this.endTime;
+        },
+        paletteLabel: 'time switch',
+        align: 'left',
+        oneditprepare: function () {
+            if (!$("#node-input-lat").val().trim() && !$("#node-input-lon").val().trim()) {
+                if ('geolocation' in navigator) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        $("#node-input-lat").val(Number(position.coords.latitude.toFixed(5)));
+                        $("#node-input-lon").val(Number(position.coords.longitude.toFixed(5)));
+                    });
+                }
+            }
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="time-switch">
+    <div class="form-row">
+        <label for="node-input-name">
+            <i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <hr>
+    <div class="form-row">
+        <label for="node-input-lat">
+            <i class="fa fa-globe"></i> Latitude</label>
+        <input type="text" id="node-input-lat" placeholder="51.025">
+    </div>
+    <div class="form-row">
+        <label for="node-input-lon">
+            <i class="fa fa-globe"></i> Longitude</label>
+        <input type="text" id="node-input-lon" placeholder="-1.4">
+    </div>
+
+    <hr>
+    <div class="form-row">
+        <label for="node-input-startTime">
+            <i class="icon-tag"></i>Start time</label>
+        <input type="text" id="node-input-startTime" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-startOffset">
+            <i class="icon-tag"></i>Start time offset</label>
+        <input type="text" id="node-input-startOffset" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-endTime">
+            <i class="icon-tag"></i> End time</label>
+        <input type="text" id="node-input-endTime" placeholder="">
+    </div>
+    <div class="form-row">
+        <label for="node-input-endOffset">
+            <i class="icon-tag"></i> End time offset</label>
+        <input type="text" id="node-input-endOffset" placeholder="">
+    </div>
+
+</script>
+
+<script type="text/x-red" data-help-name="time-switch">
+    <h1>Time Switch</h1>
+    <p>A simple node that routes messages depending on the time. If the current time falls within the range specified in the
+        node configuration, the message is routed to output 1. Otherwise the message is routed to output 2.
+    </p>
+    <p>The times can be a 24 hour time or a
+        <a href="https://github.com/mourner/suncalc" target="newWindow">suncalc</a> event:
+        <p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Time</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <code>00:00 ... 23:59</code>
+                        </td>
+                        <td>a 24h time</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>sunrise</code>
+                        </td>
+                        <td>sunrise (top edge of the sun appears on the horizon)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>sunriseEnd</code>
+                        </td>
+                        <td>sunrise ends (bottom edge of the sun touches the horizon)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>goldenHourEnd</code>
+                        </td>
+                        <td>morning golden hour (soft light, best time for photography) ends</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>solarNoon</code>
+                        </td>
+                        <td>solar noon (sun is in the highest position)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>goldenHour</code>
+                        </td>
+                        <td>evening golden hour starts</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>sunsetStart</code>
+                        </td>
+                        <td>sunset starts (bottom edge of the sun touches the horizon)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>sunset</code>
+                        </td>
+                        <td>sunset (sun disappears below the horizon, evening civil twilight starts)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>dusk</code>
+                        </td>
+                        <td>dusk (evening nautical twilight starts)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>nauticalDusk</code>
+                        </td>
+                        <td>nautical dusk (evening astronomical twilight starts)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>night</code>
+                        </td>
+                        <td>night starts (dark enough for astronomical observations)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>nadir</code>
+                        </td>
+                        <td>nadir (darkest moment of the night, sun is in the lowest position)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>nightEnd</code>
+                        </td>
+                        <td>night ends (morning astronomical twilight starts)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>nauticalDawn</code>
+                        </td>
+                        <td>nautical dawn (morning nautical twilight starts)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <code>dawn</code>
+                        </td>
+                        <td>dawn (morning nautical twilight ends, morning civil twilight starts)</td>
+                    </tr>
+					<tr>
+                        <td>
+                            <code>{{msg.fieldName}}</code>
+                        </td>
+                        <td>access a field of the message (mustache template syntax)</td>
+                    </tr>
+					<tr>
+                        <td>
+                            <code>{{flow.fieldName}}</code>
+                        </td>
+                        <td>access a field of the flow (mustache template syntax)</td>
+                    </tr>
+					<tr>
+                        <td>
+                            <code>{{global.fieldName}}</code>
+                        </td>
+                        <td>access a global field (mustache template syntax)</td>
+                    </tr>
+                </tbody>
+            </table>
+            <h2 id="offsets">Offsets</h2>
+            <p>The start and end time can have an offset. This is specified in minutes:</p>
+            <ul>
+                <li>-ve number brings the time forward. E.g. if the time is dusk and offset is -60, the start time will be 60
+                    minutes before dusk.</li>
+                <li>+ve number delays the time by the specified number of minutes</li>
+            </ul>
+</script>
