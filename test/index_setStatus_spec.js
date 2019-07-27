@@ -34,13 +34,13 @@ const nodeRedModule = require('../index.js');
 
 // eslint-disable-next-line max-lines-per-function
 describe('index', function() {
-    describe('setStatus', function() {
+    describe('setSuccessStatus', function() {
         it('should set within range status', function() {
             const node = mock(nodeRedModule, {});
             const start = moment('2019-11-21 06:30');
             const end = moment('2019-11-22 03:30');
 
-            node.setStatus(start, end, true);
+            node.setSuccessStatus(start, end, true);
             const result = node.status();
 
             result.fill.should.equal('green');
@@ -52,7 +52,7 @@ describe('index', function() {
             const start = moment('2019-11-21 06:30');
             const end = moment('2019-11-22 03:30');
 
-            node.setStatus(start, end, false);
+            node.setSuccessStatus(start, end, false);
             const result = node.status();
 
             result.fill.should.equal('green');

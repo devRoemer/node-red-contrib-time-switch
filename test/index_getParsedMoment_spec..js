@@ -27,6 +27,7 @@
  */
 
 require('should');
+const assert = require('assert');
 const moment = require('moment');
 const mock = require('node-red-contrib-mock-node');
 
@@ -67,6 +68,22 @@ describe('index', function() {
         it('should not change date with offset undefined', function() {
             const result = node.getParsedMoment('12:00', undefined, parser);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+        });
+        it('should not change date with offset invalid', function() {
+            const result = node.getParsedMoment('12:00', 'invalid', parser);
+            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+        });
+        it('should throw exception if time is empty', function() {
+            assert.throws(() => node.getParsedMoment('', 0, parser), Error);
+        });
+        it('should throw exception if time is null', function() {
+            assert.throws(() => node.getParsedMoment(null, 0, parser), Error);
+        });
+        it('should throw exception if time is undefined', function() {
+            assert.throws(() => node.getParsedMoment(undefined, 0, parser), Error);
+        });
+        it('should throw exception if time is invalid', function() {
+            assert.throws(() => node.getParsedMoment('invalid', 0, parser), Error);
         });
     });
 });

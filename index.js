@@ -35,15 +35,24 @@ module.exports = function(RED) {
         RED.nodes.createNode(this, config);
 
         this.on('input', msg => {
-            const parser = new PlaceholderParser(this.context(), msg);
+            try {
+                const parser = new PlaceholderParser(this.context(), msg);
 
-            const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser, config.lat, config.lon);
-            const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser, config.lat, config.lon);
+                const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser, config.lat, config.lon);
+                const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser, config.lat, config.lon);
 
-            const isWithinRange = this.isCurrentTimeWithinRange(startMoment, endMoment);
+                const isWithinRange = this.isCurrentTimeWithinRange(startMoment, endMoment);
 
-            this.sendMessage(msg, isWithinRange);
-            this.setStatus(startMoment, endMoment, isWithinRange);
+                this.sendMessage(msg, isWithinRange);
+                this.setSuccessStatus(startMoment, endMoment, isWithinRange);
+            }
+            catch (e) {
+                this.status({
+                    fill: 'red',
+                    shape: 'ring',
+                    text: e.message
+                });
+            }
         });
 
         this.now = function() {
@@ -54,11 +63,12 @@ module.exports = function(RED) {
             const parsedTime = placeholderParser.getParsedValue(timeString);
             const parsedMoment = DateParser.momentFor(parsedTime, this.now(), lat, lon);
 
-            const parsedOffset = placeholderParser.getParsedValue(offset);
-            if (parsedOffset) {
-                parsedMoment.add(parsedOffset, 'minutes');
+            if (!parsedMoment) {
+                throw new Error(`'${parsedTime}' is no valid time`);
             }
 
+            const parsedOffset = placeholderParser.getParsedValue(offset);
+            parsedMoment.add(parsedOffset, 'minutes');
             return parsedMoment;
         };
 
@@ -100,7 +110,7 @@ module.exports = function(RED) {
             this.send(messageContainer);
         };
 
-        this.setStatus = function(startMoment, endMoment, isWithinRange) {
+        this.setSuccessStatus = function(startMoment, endMoment, isWithinRange) {
             const startText = startMoment.format('HH:mm');
             const endText = endMoment.format('HH:mm');
 

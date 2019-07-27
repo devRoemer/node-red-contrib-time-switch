@@ -167,5 +167,47 @@ describe('index', function() {
             status.shape.should.equal('dot');
             /(\d+):(\d+) - (\d+):(\d+)/.test(status.text).should.be.true();
         });
+        it('should get red with invalid dates', function() {
+            // arrange
+            let result = null;
+            const node = mock(nodeRedModule, {
+                startTime: '08:00',
+                endTime: 'invalid',
+                startOffset: 1,
+                endOffset: 2,
+                lat: 51.33411,
+                lon: -0.83716,
+                unitTest: true
+            });
+            node.context = function() {
+                return {
+                    flow: {
+                        'keys'() { return ['flowKey']},
+                        'get'() { return '10:00' }
+                    },
+                    global: {
+                        'keys'() { return []},
+                        'get'() { return undefined }
+                    }
+                }
+            };
+            node.send = function(msg) {
+                result = msg;
+            };
+            node.now = function() {
+                return moment('2019-03-22 11:00:00');
+            };
+        
+            // act
+            node.emit('input', {});
+
+            // assert
+            should.not.exist(result);
+
+            const status = node.status();
+            status.fill.should.equal('red');
+            status.shape.should.equal('ring');
+            status.text.should.equal("'invalid' is no valid time");
+        });
     });
 });
