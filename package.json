@@ -11,7 +11,7 @@
         "sun events"
     ],
     "scripts": {
-		"test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/**/*_spec.js",
+        "test-travis": "istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/**/*_spec.js",
         "test": "nyc --reporter=html mocha"
     },
     "author": "@huzergackl",
@@ -35,14 +35,14 @@
         "url": "https://github.com/huzergackl/node-red-time-switch/issues"
     },
     "devDependencies": {
-	    "coveralls": "^3.0.5",
+        "coveralls": "^3.0.5",
         "eslint": "^5.1.0",
         "eslint-config-biddster": "^0.6.0",
         "eslint-config-prettier": "^2.9.0",
         "mocha": "^5.2.0",
         "node-red-contrib-mock-node": "^0.4.0",
         "nyc": "^12.0.2",
-		"istanbul": "^1.1.0-alpha.1",
+        "istanbul": "^1.1.0-alpha.1",
         "prettier": "^1.13.7",
         "should": "^8.4.0"
     },
