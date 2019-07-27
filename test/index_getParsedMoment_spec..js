@@ -56,6 +56,10 @@ describe('index', function() {
             const result = node.getParsedMoment('12:00', 0, parser);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
+        it('should add offset to suncal names', function() {
+            const result = node.getParsedMoment('goldenHour', 5, parser, 51.33411, -0.83716);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-20T15:21:00');
+        });
         it('should not change date with offset null', function() {
             const result = node.getParsedMoment('12:00', null, parser);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');

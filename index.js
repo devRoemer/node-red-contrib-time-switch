@@ -37,8 +37,8 @@ module.exports = function(RED) {
         this.on('input', msg => {
             const parser = new PlaceholderParser(this.context(), msg);
 
-            const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser);
-            const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser);
+            const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser, config.lat, config.lon);
+            const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser, config.lat, config.lon);
 
             const isWithinRange = this.isCurrentTimeWithinRange(startMoment, endMoment);
 
@@ -50,9 +50,9 @@ module.exports = function(RED) {
             return moment();
         };
 
-        this.getParsedMoment = function(timeString, offset, placeholderParser) {
+        this.getParsedMoment = function(timeString, offset, placeholderParser, lat, lon) {
             const parsedTime = placeholderParser.getParsedValue(timeString);
-            const parsedMoment = DateParser.momentFor(parsedTime, this.now());
+            const parsedMoment = DateParser.momentFor(parsedTime, this.now(), lat, lon);
 
             const parsedOffset = placeholderParser.getParsedValue(offset);
             if (parsedOffset) {
