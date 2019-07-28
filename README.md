@@ -1,5 +1,7 @@
-[![Build Status](https://travis-ci.com/huzergackl/node-red-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-time-switch) [![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-time-switch?branch=master)
-
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/rdmtc/node-red-contrib-sun-position/graphs/commit-activity)
+[![Build Status](https://travis-ci.com/huzergackl/node-red-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-time-switch) 
+[![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-time-switch?branch=master)
+[![Dependencies Status](https://david-dm.org/huzergackl/node-red-time-switch.svg)](https://david-dm.org/huzergackl/node-red-time-switch)
 
 ## Node-RED Time Switch
 
@@ -16,9 +18,10 @@ This is basically a rewrite of biddsters module node-red-contrib-time-range-swit
 
 ### Installation
  
-Change the directory to your node red installation:
+Change directory to your node red installation and run the following command:
 
-    $ npm install node-red-time-switch
+[![NPM](https://nodei.co/npm/node-red-time-switch.png)](https://nodei.co/npm/node-red-time-switch/)
+
  
 ### Configuration 
     
