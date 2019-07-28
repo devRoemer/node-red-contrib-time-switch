@@ -3,10 +3,15 @@
 
 ## Node-RED Time Switch
 
-A simple Node-RED node that routes messages depending on the time. If the current time falls within the range specified
-in the node configuration, the message is routed to output 1. Otherwise the message is routed to output 2.
+A simple Node-RED node that routes messages depending on the time or sun position.
 
-This is basically a rewrite of biddsters module node-red-contrib-time-range-switch. It is a drop in replacement with additional fixes and features. Thanks [@biddster](https://github.com/biddster/node-red-contrib-time-range-switch) for providing the base for this plugin.
+![Node](https://raw.githubusercontent.com/huzergackl/node-red-time-switch/master/screenshots/screenshot_node.png)
+
+It is possible to specify a time, the sun position (requires your geo location to be configured) or even a value of the message, the flow or the instance of node red.
+
+![Config](https://raw.githubusercontent.com/huzergackl/node-red-time-switch/master/screenshots/screenshot_config.png)
+
+This is basically a rewrite of biddsters module node-red-contrib-time-range-switch. It has the same features with additional fixes and features. Thanks [@biddster](https://github.com/biddster/node-red-contrib-time-range-switch) for providing the base for this plugin.
 
 
 ### Installation
