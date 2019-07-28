@@ -6,6 +6,8 @@
 A simple Node-RED node that routes messages depending on the time. If the current time falls within the range specified
 in the node configuration, the message is routed to output 1. Otherwise the message is routed to output 2.
 
+This is basically a rewrite of biddsters module node-red-contrib-time-range-switch. It is a drop in replacement with additional fixes and features. Thanks [@biddster](https://github.com/biddster/node-red-contrib-time-range-switch) for providing the base for this plugin.
+
 
 ### Installation
  
