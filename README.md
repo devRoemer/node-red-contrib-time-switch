@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.com/huzergackl/node-red-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-time-switch) 
 [![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-time-switch?branch=master)
 [![Dependencies Status](https://david-dm.org/huzergackl/node-red-time-switch.svg)](https://david-dm.org/huzergackl/node-red-time-switch)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-time-switch)](https://codeclimate.com/github/huzergackl/node-red-time-switch)
 
 ## Node-RED Time Switch
 
