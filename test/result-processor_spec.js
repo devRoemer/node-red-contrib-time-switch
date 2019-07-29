@@ -27,7 +27,6 @@
  */
 
 const should = require('should');
-const moment = require('moment');
 const mock = require('node-red-contrib-mock-node');
 
 const ResultProcessor = require('../result-processor.js');
