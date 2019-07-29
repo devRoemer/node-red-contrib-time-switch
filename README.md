@@ -4,7 +4,7 @@
 [![Dependencies Status](https://david-dm.org/huzergackl/node-red-time-switch.svg)](https://david-dm.org/huzergackl/node-red-time-switch)
 [![Maintainability](https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-time-switch)](https://codeclimate.com/github/huzergackl/node-red-time-switch)
 
-## Node-RED Time Switch
+## Node-RED Time Switch (Contribution package)
 
 A simple Node-RED node that routes messages depending on the time or sun position.
 
