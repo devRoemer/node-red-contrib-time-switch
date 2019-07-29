@@ -21,7 +21,7 @@ This is basically a rewrite of biddsters module node-red-contrib-time-range-swit
  
 Change directory to your node red installation and run the following command:
 
-[![NPM](https://nodei.co/npm/node-red-time-switch.png)](https://nodei.co/npm/node-red-time-switch/)
+[![NPM](https://nodei.co/npm/node-red-contrib-time-switch.png)](https://nodei.co/npm/node-red-contrib-time-switch/)
 
  
 ### Configuration 
