@@ -1,18 +1,19 @@
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/huzergackl/node-red-time-switch/graphs/commit-activity)
-[![Build Status](https://travis-ci.com/huzergackl/node-red-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-time-switch) 
-[![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-time-switch?branch=master)
-[![Dependencies Status](https://david-dm.org/huzergackl/node-red-time-switch.svg)](https://david-dm.org/huzergackl/node-red-time-switch)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-time-switch)](https://codeclimate.com/github/huzergackl/node-red-time-switch)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/huzergackl/node-red-contrib-time-switch/graphs/commit-activity)
+[![Build Status](https://travis-ci.com/huzergackl/node-red-contrib-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-contrib-time-switch) 
+[![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-contrib-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-contrib-time-switch?branch=master)
+[![Dependencies Status](https://david-dm.org/huzergackl/node-red-contrib-time-switch.svg)](https://david-dm.org/huzergackl/node-red-contrib-time-switch)
+[![Maintainability](https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-contrib-time-switch)](https://codeclimate.com/github/huzergackl/node-red-contrib-time-switch)
+
 
 ## Node-RED Time Switch (Contribution package)
 
 A simple Node-RED node that routes messages depending on the time or sun position.
 
-![Node](https://raw.githubusercontent.com/huzergackl/node-red-time-switch/master/screenshots/screenshot_node.png)
+![Node](https://raw.githubusercontent.com/huzergackl/node-red-contrib-time-switch/master/screenshots/screenshot_node.png)
 
 It is possible to specify a time, the sun position (requires your geo location to be configured) or even a value of the message, the flow or the instance of node red.
 
-![Config](https://raw.githubusercontent.com/huzergackl/node-red-time-switch/master/screenshots/screenshot_config.png)
+![Config](https://raw.githubusercontent.com/huzergackl/node-red-contrib-time-switch/master/screenshots/screenshot_config.png)
 
 This is basically a rewrite of biddsters module node-red-contrib-time-range-switch. It has the same features with additional fixes and features. Thanks [@biddster](https://github.com/biddster/node-red-contrib-time-range-switch) for providing the base for this plugin.
 

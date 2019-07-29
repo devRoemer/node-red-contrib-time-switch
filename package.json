@@ -1,5 +1,5 @@
 {
-    "name": "node-red-time-switch",
+    "name": "node-red-contrib-time-switch",
     "version": "1.0.3",
     "description": "Routes messages depending on the current time.",
     "main": "index.js",
@@ -29,10 +29,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/huzergackl/node-red-time-switch"
+        "url": "https://github.com/huzergackl/node-red-contrib-time-switch"
     },
     "bugs": {
-        "url": "https://github.com/huzergackl/node-red-time-switch/issues"
+        "url": "https://github.com/huzergackl/node-red-contrib-time-switch/issues"
     },
     "devDependencies": {
         "coveralls": "^3.0.5",
