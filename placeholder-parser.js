@@ -27,7 +27,7 @@ const mustache = require('mustache');
 
 class PlaceholderParser {
     constructor(context, message) {
-        this.createDataObject(context, message);
+        this.initializeData(context, message);
     }
 
     getParsedValue(rawValue) {
@@ -38,7 +38,7 @@ class PlaceholderParser {
         return mustache.render(rawValue.toString(), this.data);
     }
 
-    createDataObject(context, message) {
+    initializeData(context, message) {
         this.data = {
             msg: message,
             flow: [],
@@ -49,13 +49,14 @@ class PlaceholderParser {
             return;
         }
 
-        context.flow.keys().forEach(function(flowKey) {
-            this.data.flow[flowKey] = context.flow.get(flowKey);
-        }.bind(this));
+        PlaceholderParser.mapContextToArray(this.data.flow, context.flow);
+        PlaceholderParser.mapContextToArray(this.data.global, context.global);
+    }
 
-        context.global.keys().forEach(function(globalKey) {
-            this.data.global[globalKey] = context.global.get(globalKey);
-        }.bind(this));
+    static mapContextToArray(targetArray, sourceContext) {
+        sourceContext.keys().forEach(function(flowKey) {
+            targetArray[flowKey] = sourceContext.get(flowKey);
+        });
     }
 }
 
