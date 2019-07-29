@@ -1,7 +1,5 @@
-/* eslint-disable max-lines */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable max-statements-per-line */
+/* eslint-disable prefer-named-capture-group */
+/* eslint-disable require-unicode-regexp */
 /**
  The MIT License (MIT)
 
@@ -26,31 +24,40 @@
  THE SOFTWARE.
  */
 
-const should = require('should');
-const mock = require('node-red-contrib-mock-node');
+class ResultProcessor {
 
-const nodeRedModule = require('../index.js');
+    static sendMessage(nrModule, message, outputIndex) {
+        const messageContainer = [];
+        messageContainer[outputIndex] = message;
 
-// eslint-disable-next-line max-lines-per-function
-describe('index', function() {
-    describe('sendMessage', function() {
-        it('should send in range to output 1', function() {
-            const node = mock(nodeRedModule, {});
+        nrModule.send(messageContainer);
+    };
 
-            node.sendMessage('messageText', true);
-            const result = node.sent(0);
-
-            result[0].should.equal('messageText')
-            should.not.exist(result[1]);
+    static setStatusFailed(nrModule, stateText)  {
+        nrModule.status({
+            fill: 'red',
+            shape: 'ring',
+            text: `${stateText} at: ${ResultProcessor.getStatusTextDate()}`
         });
-        it('should send outside range to output 2', function() {
-            const node = mock(nodeRedModule, {});
+    };
 
-            node.sendMessage('messageText', false);
-            const result = node.sent(0);
-            
-            should.not.exist(result[0]);
-            result[1].should.equal('messageText')
+    static setStatusSuccess(nrModule, stateText, isConditionMet) {
+        nrModule.status({
+            fill: 'green',
+            shape: isConditionMet ? 'dot' : 'ring',
+            text: `${stateText} at: ${ResultProcessor.getStatusTextDate()}`
         });
-    });
-});
+    }
+
+    static getStatusTextDate() {
+        return new Date().toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            hour12: false,
+            hour: 'numeric',
+            minute: 'numeric'
+        });
+    }
+}
+
+module.exports = ResultProcessor;

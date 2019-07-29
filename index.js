@@ -26,10 +26,11 @@
 module.exports = function(RED) {
 
     const moment = require('moment');
-    require('twix');
 
     const PlaceholderParser = require('./placeholder-parser');
     const DateParser = require('./date-parser');
+    const DateComparator = require('./date-comparator');
+    const ResultProcessor = require('./result-processor');
 
     RED.nodes.registerType('time-switch', function(config) {
         RED.nodes.createNode(this, config);
@@ -41,17 +42,16 @@ module.exports = function(RED) {
                 const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser, config.lat, config.lon);
                 const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser, config.lat, config.lon);
 
-                const isWithinRange = this.isCurrentTimeWithinRange(startMoment, endMoment);
+                const isWithinRange = DateComparator.isWithinRange(startMoment, endMoment, this.now());
 
-                this.sendMessage(msg, isWithinRange);
-                this.setSuccessStatus(startMoment, endMoment, isWithinRange);
+                const outputIndex = isWithinRange ? 0 : 1;
+                ResultProcessor.sendMessage(this, msg, outputIndex);
+
+                const successText = `${startMoment.format('HH:mm')} - ${endMoment.format('HH:mm')}`;
+                ResultProcessor.setStatusSuccess(this, successText, isWithinRange);
             }
             catch (e) {
-                this.status({
-                    fill: 'red',
-                    shape: 'ring',
-                    text: e.message
-                });
+                ResultProcessor.setStatusFailed(this, e.message);
             }
         });
 
@@ -70,55 +70,6 @@ module.exports = function(RED) {
             const parsedOffset = placeholderParser.getParsedValue(offset);
             parsedMoment.add(parsedOffset, 'minutes');
             return parsedMoment;
-        };
-
-        this.isCurrentTimeWithinRange = function(startMoment, endMoment) {
-            const now = this.now();
-
-            // align end to be before AND within 24 hours of start
-            while (endMoment.diff(startMoment, 'seconds') < 0) {
-                // end before start
-                endMoment.add(1, 'day');
-            }
-            // move start and end window to be within a day of now
-            while (endMoment.diff(now, 'seconds') < 0) {
-                // end before now
-                startMoment.add(1, 'day');
-                endMoment.add(1, 'day');
-            }
-            while (endMoment.diff(now, 'seconds') > 86400) {
-                // end more than day from now
-                startMoment.subtract(1, 'day');
-                endMoment.subtract(1, 'day');
-            }
-
-            const range = moment.twix(startMoment, endMoment);
-            return range.contains(now);
-        };
-
-        this.sendMessage = function(message, isWithinRange) {
-            const withinRangeOutput = 0;
-            const outsideOutput = 1;
-
-            const outputIndex = isWithinRange
-                ? withinRangeOutput
-                : outsideOutput;
-
-            const messageContainer = [];
-            messageContainer[outputIndex] = message;
-
-            this.send(messageContainer);
-        };
-
-        this.setSuccessStatus = function(startMoment, endMoment, isWithinRange) {
-            const startText = startMoment.format('HH:mm');
-            const endText = endMoment.format('HH:mm');
-
-            this.status({
-                fill: 'green',
-                shape: isWithinRange ? 'dot' : 'ring',
-                text:  `${startText} - ${endText}`
-            });
         };
     });
 };

@@ -79,7 +79,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('dot');
-            status.text.should.equal('08:01 - 10:02')
+            status.text.should.startWith('08:01 - 10:02')
         });
         it('should run through entire process (outside range)', function() {
             // arrange
@@ -122,7 +122,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('ring');
-            status.text.should.equal('08:01 - 10:02')
+            status.text.should.startWith('08:01 - 10:02')
         });
         it('should run through entire process with suncalc (within range)', function() {
             // arrange
@@ -207,7 +207,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('red');
             status.shape.should.equal('ring');
-            status.text.should.equal("'invalid' is no valid time");
+            status.text.should.startWith("'invalid' is no valid time");
         });
     });
 });
