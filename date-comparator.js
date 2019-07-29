@@ -1,4 +1,5 @@
-/* eslint-disable max-lines-per-function */
+/* eslint-disable prefer-named-capture-group */
+/* eslint-disable require-unicode-regexp */
 /**
  The MIT License (MIT)
 
@@ -23,41 +24,32 @@
  THE SOFTWARE.
  */
 
-const mustache = require('mustache');
+const moment = require('moment');
+require('twix');
 
-class PlaceholderParser {
-    constructor(context, message) {
-        this.initializeData(context, message);
-    }
+class DateComparator {
 
-    getParsedValue(rawValue) {
-        if(rawValue === undefined || rawValue === null) {
-            return rawValue;
+    static isWithinRange(startMoment, endMoment, dateToCompare) {
+        // align end to be before AND within 24 hours of start
+        while (endMoment.diff(startMoment, 'seconds') < 0) {
+            // end before start
+            endMoment.add(1, 'day');
+        }
+        // move start and end window to be within a day of dateToCompare
+        while (endMoment.diff(dateToCompare, 'seconds') < 0) {
+            // end before dateToCompare
+            startMoment.add(1, 'day');
+            endMoment.add(1, 'day');
+        }
+        while (endMoment.diff(dateToCompare, 'seconds') > 86400) {
+            // end more than day from dateToCompare
+            startMoment.subtract(1, 'day');
+            endMoment.subtract(1, 'day');
         }
 
-        return mustache.render(rawValue.toString(), this.data);
-    }
-
-    initializeData(context, message) {
-        this.data = {
-            msg: message,
-            flow: [],
-            global: []
-        };
-
-        if (!context) {
-            return;
-        }
-
-        PlaceholderParser.mapContextToArray(this.data.flow, context.flow);
-        PlaceholderParser.mapContextToArray(this.data.global, context.global);
-    }
-
-    static mapContextToArray(targetArray, sourceContext) {
-        sourceContext.keys().forEach(function(flowKey) {
-            targetArray[flowKey] = sourceContext.get(flowKey);
-        });
-    }
+        const range = moment.twix(startMoment, endMoment);
+        return range.contains(dateToCompare);
+    };
 }
 
-module.exports = PlaceholderParser;
+module.exports = DateComparator;
