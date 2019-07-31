@@ -1,5 +1,7 @@
-/* eslint-disable prefer-named-capture-group */
-/* eslint-disable require-unicode-regexp */
+/* eslint-disable max-lines */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable prefer-destructuring */
+/* eslint-disable max-statements-per-line */
 /**
  The MIT License (MIT)
 
@@ -24,38 +26,25 @@
  THE SOFTWARE.
  */
 
-const moment = require('moment');
-const SunCalc = require('suncalc');
+const should = require('should');
 
-class DateParser {
-
-    static timeToMoment(day, time, location)  {
-        let retVal = null;
-
-        if(!time) {
-            return time;
-        }
-
-        const matches = new RegExp(/(\d+):(\d+)/, 'u').exec(time);
-        if (matches && matches.length && matches.length > 2) {
-            retVal = day
-                .clone()
-                .hour(matches[1])
-                .minute(matches[2]);
-        } else {
-            const sunCalcTimes = SunCalc.getTimes(day.clone().toDate(), location.lat, location.lon);
-            const date = sunCalcTimes[time];
-            if (date) {
-                retVal = moment(date);
-            }
-        }
-
-        if (retVal) {
-            retVal.seconds(0);
-        }
-
-        return retVal;
-    };
-}
-
-module.exports = DateParser;
+describe('date-utils', function() {
+    describe('getCurrent', function() {
+        let DateUtils = null;
+        before(function() {
+            DateUtils = require('../date-utils.js');
+        });
+        it('should returnData', function() {
+            const result = DateUtils.getCurrent();
+            should.exist(result);
+        });
+        it('should be a moment', function() {
+            const result = DateUtils.getCurrent();
+            result._isAMomentObject.should.be.true();
+        });
+        it('should be a valid moment', function() {
+            const result = DateUtils.getCurrent();
+            result._isValid.should.be.true();
+        });
+    });
+});

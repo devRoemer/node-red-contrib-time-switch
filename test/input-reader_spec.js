@@ -29,61 +29,59 @@
 require('should');
 const assert = require('assert');
 const moment = require('moment');
-const mock = require('node-red-contrib-mock-node');
 
-const nodeRedModule = require('../index.js');
-const PlaceholderParser = require('../placeholder-parser');
+const InputReader = require('../input-reader.js');
 
 // eslint-disable-next-line max-lines-per-function
-describe('index', function() {
-    const parser = new PlaceholderParser(null, null);
-
-    describe('getParsedMoment', function() {
-        const node = mock(nodeRedModule, {});
-        const time = moment('2019-11-21');
-        node.now = function() { 
-            return time.clone();
-        };
-
+describe('input-reader', function() {
+    // eslint-disable-next-line max-lines-per-function
+    describe('timeToMoment', function() {
+        let day = null;
+        let reader = null;
+        before(function() {
+            day = moment('2019-11-21');
+            const config = { lat: 51.33411, lon: -0.83716 };
+            reader = new InputReader('testmessage', null, config);
+        });
         it('should add offset', function() {
-            const result = node.getParsedMoment('12:00', 10, parser);
+            const result = reader.timeToMoment(day, '12:00', 10);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:10:00');
         });
         it('should subtract negative offset', function() {
-            const result = node.getParsedMoment('12:00', -10, parser);
+            const result = reader.timeToMoment(day, '12:00', -10);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T11:50:00');
         });
         it('should not change date with offset 0', function() {
-            const result = node.getParsedMoment('12:00', 0, parser);
+            const result = reader.timeToMoment(day, '12:00', 0);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
         it('should add offset to suncal names', function() {
-            const result = node.getParsedMoment('goldenHour', 5, parser, 51.33411, -0.83716);
+            const result = reader.timeToMoment(day, 'goldenHour', 5);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-20T15:21:00');
         });
         it('should not change date with offset null', function() {
-            const result = node.getParsedMoment('12:00', null, parser);
+            const result = reader.timeToMoment(day, '12:00', null);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
         it('should not change date with offset undefined', function() {
-            const result = node.getParsedMoment('12:00', undefined, parser);
+            const result = reader.timeToMoment(day, '12:00', undefined);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
         it('should not change date with offset invalid', function() {
-            const result = node.getParsedMoment('12:00', 'invalid', parser);
+            const result = reader.timeToMoment(day, '12:00', 'invalid');
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
         it('should throw exception if time is empty', function() {
-            assert.throws(() => node.getParsedMoment('', 0, parser), Error);
+            assert.throws(() => reader.timeToMoment(day, '', 0), Error);
         });
         it('should throw exception if time is null', function() {
-            assert.throws(() => node.getParsedMoment(null, 0, parser), Error);
+            assert.throws(() => reader.timeToMoment(day, null, 0), Error);
         });
         it('should throw exception if time is undefined', function() {
-            assert.throws(() => node.getParsedMoment(undefined, 0, parser), Error);
+            assert.throws(() => reader.timeToMoment(day, undefined, 0), Error);
         });
         it('should throw exception if time is invalid', function() {
-            assert.throws(() => node.getParsedMoment('invalid', 0, parser), Error);
+            assert.throws(() => reader.timeToMoment(day, 'invalid', 0), Error);
         });
     });
 });

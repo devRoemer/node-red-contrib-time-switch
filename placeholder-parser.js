@@ -26,8 +26,8 @@
 const mustache = require('mustache');
 
 class PlaceholderParser {
-    constructor(context, message) {
-        this.initializeData(context, message);
+    constructor(message, context) {
+        this.initializeData(message, context);
     }
 
     getParsedValue(rawValue) {
@@ -38,7 +38,7 @@ class PlaceholderParser {
         return mustache.render(rawValue.toString(), this.data);
     }
 
-    initializeData(context, message) {
+    initializeData(message, context) {
         this.data = {
             msg: message,
             flow: [],

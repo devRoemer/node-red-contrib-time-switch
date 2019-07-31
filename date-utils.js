@@ -1,7 +1,5 @@
-/* eslint-disable max-lines */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable prefer-destructuring */
-/* eslint-disable max-statements-per-line */
+/* eslint-disable prefer-named-capture-group */
+/* eslint-disable require-unicode-regexp */
 /**
  The MIT License (MIT)
 
@@ -26,19 +24,12 @@
  THE SOFTWARE.
  */
 
-const should = require('should');
-const mock = require('node-red-contrib-mock-node');
+const moment = require('moment');
 
-const nodeRedModule = require('../index.js');
+class DateUtils {
+    static getCurrent() {
+        return moment();
+    };
+}
 
-// eslint-disable-next-line max-lines-per-function
-describe('index', function() {
-    describe('now', function() {
-        it('should return a moment date', function() {
-            const node = mock(nodeRedModule, {});
-            const result = node.now();
-
-            should.exist(result);
-        });
-    });
-});
+module.exports = DateUtils;

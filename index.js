@@ -25,51 +25,32 @@
 
 module.exports = function(RED) {
 
-    const moment = require('moment');
-
-    const PlaceholderParser = require('./placeholder-parser');
-    const DateParser = require('./date-parser');
+    const InputReader = require('./input-reader');
     const DateComparator = require('./date-comparator');
     const ResultProcessor = require('./result-processor');
+    const DateUtils = require('./date-utils');
 
     RED.nodes.registerType('time-switch', function(config) {
         RED.nodes.createNode(this, config);
+        this.now = DateUtils.getCurrent();
 
         this.on('input', msg => {
             try {
-                const parser = new PlaceholderParser(this.context(), msg);
+                const inputReader = new InputReader(msg, this.context(), config);
+                const start = inputReader.getDateStart(this.now);
+                const end = inputReader.getDateEnd(this.now);
 
-                const startMoment = this.getParsedMoment(config.startTime, config.startOffset, parser, config.lat, config.lon);
-                const endMoment = this.getParsedMoment(config.endTime, config.endOffset, parser, config.lat, config.lon);
-
-                const isWithinRange = DateComparator.isWithinRange(startMoment, endMoment, this.now());
+                const isWithinRange = DateComparator.isWithinRange(start, end, this.now);
 
                 const outputIndex = isWithinRange ? 0 : 1;
                 ResultProcessor.sendMessage(this, msg, outputIndex);
 
-                const successText = `${startMoment.format('HH:mm')} - ${endMoment.format('HH:mm')}`;
+                const successText = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
                 ResultProcessor.setStatusSuccess(this, successText, isWithinRange);
             }
             catch (e) {
                 ResultProcessor.setStatusFailed(this, e.message);
             }
         });
-
-        this.now = function() {
-            return moment();
-        };
-
-        this.getParsedMoment = function(timeString, offset, placeholderParser, lat, lon) {
-            const parsedTime = placeholderParser.getParsedValue(timeString);
-            const parsedMoment = DateParser.momentFor(parsedTime, this.now(), lat, lon);
-
-            if (!parsedMoment) {
-                throw new Error(`'${parsedTime}' is no valid time`);
-            }
-
-            const parsedOffset = placeholderParser.getParsedValue(offset);
-            parsedMoment.add(parsedOffset, 'minutes');
-            return parsedMoment;
-        };
     });
 };

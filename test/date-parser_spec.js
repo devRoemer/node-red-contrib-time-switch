@@ -30,63 +30,67 @@ const DateParser = require('../date-parser.js');
 describe('date-parser', function() {
 
     // eslint-disable-next-line max-lines-per-function
-    describe('getParsedValue', function() {
-        const time = moment('2019-11-21 18:10:03.987+05:00');
-
+    describe('timeToMoment', function() {
+        let location = null;
+        let day = null;
+        before(function() {
+            location = { lat: 51.33411, lon: -0.83716};
+            day = moment('2019-11-21 18:10:03.987+05:00');
+        });
         it('should parse before midnight', function() {
-            const result = DateParser.momentFor('23:59:59', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '23:59:59', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T23:59:00');
         });
         it('should parse midnight', function() {
-            const result = DateParser.momentFor('00:00:00', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '00:00:00', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T00:00:00');
         });
         it('should parse after midnight', function() {
-            const result = DateParser.momentFor('00:01:01', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '00:01:01', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T00:01:00');
         });
         it('should parse before midday', function() {
-            const result = DateParser.momentFor('11:59:59', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '11:59:59', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T11:59:00');
         });
         it('should parse midday', function() {
-            const result = DateParser.momentFor('12:00:00', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '12:00:00', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
         });
         it('should parse after midday', function() {
-            const result = DateParser.momentFor('12:01:01', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '12:01:01', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:01:00');
         });
         it('should parse two digit time', function() {
-            const result = DateParser.momentFor('13:10', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '13:10', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T13:10:00');
         });
         it('should parse dawn', function() {
-            const result = DateParser.momentFor('dawn', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, 'dawn', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T06:53:00');
         });
         it('should parse dusk', function() {
-            const result = DateParser.momentFor('dusk', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, 'dusk', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:47:00');
         });
         it('should parse goldenHour', function() {
-            const result = DateParser.momentFor('goldenHour', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, 'goldenHour', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T15:14:00');
         });
         it('should parse invalid name', function() {
-            const result = DateParser.momentFor('invalidName', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, 'invalidName', location);
             should.not.exist(result);
         });
         it('should parse empty date', function() {
-            const result = DateParser.momentFor('', time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, '', location);
             result.should.be.empty();
         });
         it('should parse undefined date', function() {
-            const result = DateParser.momentFor(undefined, time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, undefined, location);
             should.not.exist(result);
         });
         it('should parse null date', function() {
-            const result = DateParser.momentFor(null, time, 51.33411, -0.83716);
+            const result = DateParser.timeToMoment(day, null, location);
             should.not.exist(result);
         });
     });

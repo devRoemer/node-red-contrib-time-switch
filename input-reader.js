@@ -24,38 +24,40 @@
  THE SOFTWARE.
  */
 
-const moment = require('moment');
-const SunCalc = require('suncalc');
+const DateParser = require('./date-parser');
+const PlaceholderParser = require('./placeholder-parser');
 
-class DateParser {
+class InputReader {
 
-    static timeToMoment(day, time, location)  {
-        let retVal = null;
+    constructor(message, context, config) {
+        this.message = message;
+        this.config = config;
+        this.geoLocation = { lat: config.lat, lon: config.lon };
 
-        if(!time) {
-            return time;
+        this.placeholderParser = new PlaceholderParser(message, context);
+    }
+
+    getDateStart(day) {
+        return this.timeToMoment(day, this.config.startTime, this.config.startOffset);
+    }
+
+    getDateEnd(day) {
+        return this.timeToMoment(day, this.config.endTime, this.config.endOffset);
+    }
+
+    timeToMoment(day, timeString, offset) {
+        const parsedTime = this.placeholderParser.getParsedValue(timeString);
+        const parsedMoment = DateParser.timeToMoment(day, parsedTime, this.geoLocation);
+
+        if (!parsedMoment) {
+            throw new Error(`'${parsedTime}' is no valid time`);
         }
 
-        const matches = new RegExp(/(\d+):(\d+)/, 'u').exec(time);
-        if (matches && matches.length && matches.length > 2) {
-            retVal = day
-                .clone()
-                .hour(matches[1])
-                .minute(matches[2]);
-        } else {
-            const sunCalcTimes = SunCalc.getTimes(day.clone().toDate(), location.lat, location.lon);
-            const date = sunCalcTimes[time];
-            if (date) {
-                retVal = moment(date);
-            }
-        }
-
-        if (retVal) {
-            retVal.seconds(0);
-        }
-
-        return retVal;
+        const parsedOffset = this.placeholderParser.getParsedValue(offset);
+        parsedMoment.add(parsedOffset, 'minutes');
+        return parsedMoment;
     };
+
 }
 
-module.exports = DateParser;
+module.exports = InputReader;

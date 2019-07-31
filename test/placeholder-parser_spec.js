@@ -27,22 +27,23 @@ const PlaceholderParser = require('../placeholder-parser.js');
 
 // eslint-disable-next-line max-lines-per-function
 describe('placeholder-parser', function() {
-    // arrange
-    const message = { topic: 'topic', payload: 'payload' };
-    const context = {
-        flow: {
-            'keys'() { return ['flowKey', 'intFlowKey']},
-            'get'(key) { return key === 'flowKey' ? 'flowValue' : 12345 }
-        },
-        global: {
-            'keys'() { return ['globalKey', 'intGlobalFlowKey']},
-            'get'(key) { return key === 'globalKey' ? 'globalValue' : '' }
-        }
-    };
-
     // eslint-disable-next-line max-lines-per-function
     describe('getParsedValue', function() {
-        const parser = new PlaceholderParser(context, message);
+        let parser = null;
+        before(function() {
+            const message = { topic: 'topic', payload: 'payload' };
+            const context = {
+                flow: {
+                    'keys'() { return ['flowKey', 'intFlowKey']},
+                    'get'(key) { return key === 'flowKey' ? 'flowValue' : 12345 }
+                },
+                global: {
+                    'keys'() { return ['globalKey', 'intGlobalFlowKey']},
+                    'get'(key) { return key === 'globalKey' ? 'globalValue' : '' }
+                }
+            };
+            parser = new PlaceholderParser(message, context);
+        });
         it('should parse message property', function() {
             const result = parser.getParsedValue('text {{msg.payload}} more text')
             result.should.equal('text payload more text');

@@ -65,9 +65,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = function() {
-                return moment('2019-03-22 09:00:00');
-            };
+            node.now = moment('2019-03-22 09:00:00');
         
             // act
             node.emit('input', {});
@@ -108,10 +106,8 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = function() {
-                return moment('2019-03-22 11:00:00');
-            };
-        
+            node.now = moment('2019-03-22 11:00:00');
+
             // act
             node.emit('input', {});
 
@@ -151,10 +147,8 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = function() {
-                return moment('2019-03-22 11:00:00');
-            };
-        
+            node.now = moment('2019-03-22 11:00:00');
+
             // act
             node.emit('input', {});
 
@@ -194,9 +188,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = function() {
-                return moment('2019-03-22 11:00:00');
-            };
+            node.now = moment('2019-03-22 11:00:00');
         
             // act
             node.emit('input', {});
