@@ -30,31 +30,41 @@ const SunCalc = require('suncalc');
 class DateParser {
 
     static timeToMoment(day, time, location)  {
-        let retVal = null;
+        const parsedTime = this.getMomentByTime(day, time, 'HH:mm');
 
-        if(!time) {
-            return time;
+        if (parsedTime) {
+            return parsedTime;
         }
 
-        const matches = new RegExp(/(\d+):(\d+)/, 'u').exec(time);
-        if (matches && matches.length && matches.length > 2) {
-            retVal = day
-                .clone()
-                .hour(matches[1])
-                .minute(matches[2]);
-        } else {
-            const sunCalcTimes = SunCalc.getTimes(day.clone().toDate(), location.lat, location.lon);
-            const date = sunCalcTimes[time];
-            if (date) {
-                retVal = moment(date);
-            }
-        }
+        return this.getMomentBySunCalcName(day, time, location);
+    };
 
-        if (retVal) {
-            retVal.seconds(0);
+    static getMomentByTime(day, time, format) {
+        const parsedTime = moment(time, format);
+        if (parsedTime.isValid()) {
+            this.setDateOfParsedTime(day, parsedTime);
+            return parsedTime;
         }
+        return null;
+    };
 
-        return retVal;
+    static setDateOfParsedTime(day, timeMoment) {
+        timeMoment
+            .year(day.year())
+            .month(day.month())
+            .date(day.date());
+    };
+
+    static getMomentBySunCalcName(day, name, location) {
+        const suncalDate = day.clone().toDate();
+        const sunCalcTimes = SunCalc.getTimes(suncalDate, location.lat, location.lon);
+        const sunCalcTime = sunCalcTimes[name];
+        if (sunCalcTime) {
+            const parsedTime = moment(sunCalcTime);
+            parsedTime.seconds(0);
+            return parsedTime;
+        }
+        return null;
     };
 }
 

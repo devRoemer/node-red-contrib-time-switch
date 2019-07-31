@@ -83,7 +83,7 @@ describe('date-parser', function() {
         });
         it('should parse empty date', function() {
             const result = DateParser.timeToMoment(day, '', location);
-            result.should.be.empty();
+            should.not.exist(result);
         });
         it('should parse undefined date', function() {
             const result = DateParser.timeToMoment(day, undefined, location);
