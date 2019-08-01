@@ -56,5 +56,5 @@ Placeholders with prefix msg, flow or global are replaced by the corresponding f
 ### Offsets
 
 The start and end time can have an offset. This is specified in minutes:
-- Negative numbers brings the time forward. E.g. if the time is dusk and offset is -60, the start time will be 60 minutes before dusk.
-- Positive numbers delays the time by the specified number of minutes
+- Negative numbers are bringing the time back. E.g. if the time is dusk and offset is -60, the start time will be 60 minutes before dusk.
+- Positive numbers are delaying the time by the specified number of minutes
