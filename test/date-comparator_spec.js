@@ -286,5 +286,33 @@ describe('date-comparator', function() {
             result = DateComparator.isWithinRange(start, end, now);
             result.should.be.false();
         });
+        it('should work over years', function() {
+            const start = moment('2019-12-31 06:30');
+            const end = moment('2020-01-01 03:30');
+
+            let now = moment('2019-12-31 06:31');
+            let result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.true();
+
+            now = moment('2019-12-31 12:00');
+            result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.true();
+
+            now = moment('2020-01-01 00:00');
+            result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.true();
+
+            now = moment('2020-01-01 03:29');
+            result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.true();
+
+            now = moment('2020-01-01 06:29');
+            result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.false();
+
+            now = moment('2020-01-01 03:31');
+            result = DateComparator.isWithinRange(start, end, now);
+            result.should.be.false();
+        });
     });
 });
