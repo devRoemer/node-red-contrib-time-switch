@@ -35,12 +35,12 @@
         "url": "https://github.com/huzergackl/node-red-contrib-time-switch/issues"
     },
     "devDependencies": {
-        "coveralls": "^3.0.9",
+        "coveralls": "^3.0.11",
         "eslint": "^6.8.0",
         "eslint-config-biddster": "^0.6.0",
-        "eslint-config-prettier": "^6.9.0",
+        "eslint-config-prettier": "^6.10.1",
         "istanbul": "^1.1.0-alpha.1",
-        "mocha": "^6.2.2",
+        "mocha": "^6.2.3",
         "node-red-contrib-mock-node": "^0.4.0",
         "prettier": "^1.19.1",
         "should": "^13.2.3"
