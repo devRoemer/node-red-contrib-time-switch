@@ -65,18 +65,59 @@ describe('date-parser', function() {
             const result = DateParser.timeToMoment(day, '13:10', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T13:10:00');
         });
-        it('should parse dawn', function() {
-            const result = DateParser.timeToMoment(day, 'dawn', location);
-            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T06:53:00');
+        it('should parse sunrise', function() {
+            const result = DateParser.timeToMoment(day, 'sunrise', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T07:31:00');
         });
-        it('should parse dusk', function() {
-            const result = DateParser.timeToMoment(day, 'dusk', location);
-            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:47:00');
+        it('should parse sunriseEnd', function() {
+            const result = DateParser.timeToMoment(day, 'sunriseEnd', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T07:35:00');
+        });
+        it('should parse solarNoon', function() {
+            const result = DateParser.timeToMoment(day, 'solarNoon', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T11:50:00');
         });
         it('should parse goldenHour', function() {
             const result = DateParser.timeToMoment(day, 'goldenHour', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T15:14:00');
         });
+        it('should parse sunsetStart', function() {
+            const result = DateParser.timeToMoment(day, 'sunsetStart', location);
+            moment.utc(result).format('2019-11-21T16:05:00').should.equal('2019-11-21T16:05:00');
+        });
+        it('should parse sunset', function() {
+            const result = DateParser.timeToMoment(day, 'sunset', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:09:00');
+        });
+        it('should parse dusk', function() {
+            const result = DateParser.timeToMoment(day, 'dusk', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T16:47:00');
+        });
+        it('should parse nauticalDusk', function() {
+            const result = DateParser.timeToMoment(day, 'nauticalDusk', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T17:28:00');
+        });
+        it('should parse night', function() {
+            const result = DateParser.timeToMoment(day, 'night', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T18:07:00');
+        });
+        it('should parse nadir', function() {
+            const result = DateParser.timeToMoment(day, 'nadir', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-20T23:50:00');
+        });
+        it('should parse nightEnd', function() {
+            const result = DateParser.timeToMoment(day, 'nightEnd', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T05:33:00');
+        });
+        it('should parse nauticalDawn', function() {
+            const result = DateParser.timeToMoment(day, 'nauticalDawn', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T06:12:00');
+        });
+        it('should parse dawn', function() {
+            const result = DateParser.timeToMoment(day, 'dawn', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T06:53:00');
+        });
+
         it('should parse invalid name', function() {
             const result = DateParser.timeToMoment(day, 'invalidName', location);
             should.not.exist(result);
