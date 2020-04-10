@@ -73,6 +73,10 @@ describe('date-parser', function() {
             const result = DateParser.timeToMoment(day, 'sunriseEnd', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T07:35:00');
         });
+        it('should parse goldenHourEnd', function() {
+            const result = DateParser.timeToMoment(day, 'goldenHourEnd', location);
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T08:26:00');
+        });
         it('should parse solarNoon', function() {
             const result = DateParser.timeToMoment(day, 'solarNoon', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T11:50:00');
@@ -103,7 +107,7 @@ describe('date-parser', function() {
         });
         it('should parse nadir', function() {
             const result = DateParser.timeToMoment(day, 'nadir', location);
-            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-20T23:50:00');
+            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T23:50:00');
         });
         it('should parse nightEnd', function() {
             const result = DateParser.timeToMoment(day, 'nightEnd', location);

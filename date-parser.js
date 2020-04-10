@@ -25,7 +25,7 @@
  */
 
 const moment = require('moment');
-const SunCalc = require('suncalc');
+const SunCalc = require('suncalc2');
 
 class DateParser {
 
