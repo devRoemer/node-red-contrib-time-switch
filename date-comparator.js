@@ -24,8 +24,9 @@
  THE SOFTWARE.
  */
 
-const moment = require('moment');
-require('twix');
+const moment = require('moment-range')
+    .extendMoment(require('moment'));
+
 
 class DateComparator {
 
@@ -47,7 +48,7 @@ class DateComparator {
             endMoment.subtract(1, 'day');
         }
 
-        const range = moment.twix(startMoment, endMoment);
+        const range = moment.range(startMoment, endMoment);
         return range.contains(dateToCompare);
     };
 }
