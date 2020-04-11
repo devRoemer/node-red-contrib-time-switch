@@ -32,10 +32,14 @@ module.exports = function(RED) {
 
     RED.nodes.registerType('time-switch', function(config) {
         RED.nodes.createNode(this, config);
-        this.now = DateUtils.getCurrent();
+
+        this.getCurrentDate = function() {
+            return DateUtils.getCurrent();
+        }
 
         this.on('input', msg => {
             try {
+                this.now = this.getCurrentDate();
                 const inputReader = new InputReader(msg, this.context(), config);
                 const start = inputReader.getDateStart(this.now);
                 const end = inputReader.getDateEnd(this.now);

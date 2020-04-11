@@ -36,6 +36,28 @@ const nodeRedModule = require('../index.js');
 
 // eslint-disable-next-line max-lines-per-function
 describe('index', function() {
+    describe('getCurrentDate', function() {
+        it('should return a date', function() {
+            // arrange
+            const node = mock(nodeRedModule, {
+                startTime: '08:00',
+                endTime: '{{flow.flowKey}}',
+                startOffset: 1,
+                endOffset: 2,
+                lat: 51.33411,
+                lon: -0.83716,
+                unitTest: true
+            });
+
+            // act
+            const result = node.getCurrentDate();
+
+            // assert
+            should.exist(result);
+            result._isAMomentObject.should.be.true();
+            result._isValid.should.be.true();
+        });
+    });
     // eslint-disable-next-line max-lines-per-function
     describe('input', function() {
         it('should run through entire process (within range)', function() {
@@ -65,7 +87,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = moment('2019-03-22 09:00:00');
+            node.getCurrentDate = function() { return moment('2019-03-22 09:00:00'); }
         
             // act
             node.emit('input', {});
@@ -106,7 +128,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = moment('2019-03-22 11:00:00');
+            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
 
             // act
             node.emit('input', {});
@@ -147,7 +169,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = moment('2019-03-22 11:00:00');
+            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
 
             // act
             node.emit('input', {});
@@ -188,7 +210,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.now = moment('2019-03-22 11:00:00');
+            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
         
             // act
             node.emit('input', {});
@@ -200,6 +222,55 @@ describe('index', function() {
             status.fill.should.equal('red');
             status.shape.should.equal('ring');
             status.text.should.startWith("'invalid' is no valid time");
+        });
+        it('should detect changing times', function() {
+            // arrange
+            let result = null;
+            const node = mock(nodeRedModule, {
+                startTime: '08:00',
+                endTime: '10:00',
+                unitTest: true
+            });
+            node.context = function() {
+                return {
+                    flow: {
+                        'keys'() { return []},
+                        'get'() { return undefined }
+                    },
+                    global: {
+                        'keys'() { return []},
+                        'get'() { return undefined }
+                    }
+                }
+            };
+            node.send = function(msg) {
+                result = msg;
+            };
+            node.getCurrentDate = function() { return moment('2019-03-22 09:00:00'); }
+        
+            // act
+            node.emit('input', {});
+
+            // assert - should be within
+            should.exist(result[0]);
+            should.not.exist(result[1]);
+
+            let status = node.status();
+            status.fill.should.equal('green');
+            status.shape.should.equal('dot');
+            status.text.should.startWith('08:00 - 10:00')
+
+            // arrange - changed time
+            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
+
+            // act
+            node.emit('input', {});
+
+            // assert - should be outside
+            status = node.status();
+            status.fill.should.equal('green');
+            status.shape.should.equal('ring');
+            status.text.should.startWith('08:00 - 10:00')
         });
     });
 });

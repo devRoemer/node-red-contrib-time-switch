@@ -65,6 +65,10 @@ describe('date-parser', function() {
             const result = DateParser.timeToMoment(day, '13:10', location);
             result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T13:10:00');
         });
+        it('should parse two digit time without minutes', function() {
+            const result = DateParser.timeToMoment(day, '22:00', location);
+            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T22:00:00');
+        });
         it('should parse sunrise', function() {
             const result = DateParser.timeToMoment(day, 'sunrise', location);
             moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T07:31:00');
