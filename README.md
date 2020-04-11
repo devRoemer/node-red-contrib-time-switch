@@ -1,8 +1,19 @@
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/huzergackl/node-red-contrib-time-switch/graphs/commit-activity)
-[![Build Status](https://travis-ci.com/huzergackl/node-red-contrib-time-switch.svg?branch=master)](https://travis-ci.com/huzergackl/node-red-contrib-time-switch) 
-[![Coverage Status](https://coveralls.io/repos/github/huzergackl/node-red-contrib-time-switch/badge.svg?branch=master)](https://coveralls.io/github/huzergackl/node-red-contrib-time-switch?branch=master)
-[![Dependencies Status](https://david-dm.org/huzergackl/node-red-contrib-time-switch.svg)](https://david-dm.org/huzergackl/node-red-contrib-time-switch)
-[![Maintainability](https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-contrib-time-switch)](https://codeclimate.com/github/huzergackl/node-red-contrib-time-switch)
+[![Maintenance][maintenance-image]][maintenance-url] 
+[![Build Status][travis-image]][travis-url] 
+[![Coverage Status][coveralls-image]][coveralls-url] 
+[![Dependencies Status][david-image]][david-url]
+[![Maintainability][codeclimate-image]][codeclimate-url]
+
+[maintenance-image]:https://img.shields.io/badge/Maintained%3F-yes-green.svg
+[maintenance-url]:https://github.com/huzergackl/node-red-contrib-time-switch/graphs/commit-activity
+[travis-image]:https://travis-ci.com/huzergackl/node-red-contrib-time-switch.svg?branch=master
+[travis-url]:https://travis-ci.com/huzergackl/node-red-contrib-time-switch
+[coveralls-image]:https://coveralls.io/repos/github/huzergackl/node-red-contrib-time-switch/badge.svg?branch=master
+[coveralls-url]:https://coveralls.io/github/huzergackl/node-red-contrib-time-switch?branch=master
+[david-image]:https://david-dm.org/huzergackl/node-red-contrib-time-switch.svg
+[david-url]:https://david-dm.org/huzergackl/node-red-contrib-time-switch
+[codeclimate-image]:https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-contrib-time-switch
+[codeclimate-url]:https://codeclimate.com/github/huzergackl/node-red-contrib-time-switch
 
 
 ## Node-RED Time Switch (Contribution package)
