@@ -32,10 +32,14 @@ module.exports = function(RED) {
 
     RED.nodes.registerType('time-switch', function(config) {
         RED.nodes.createNode(this, config);
-        this.now = DateUtils.getCurrent();
+
+        this.getCurrentDate = function() {
+            return DateUtils.getCurrent();
+        }
 
         this.on('input', msg => {
             try {
+                this.now = this.getCurrentDate();
                 const inputReader = new InputReader(msg, this.context(), config);
                 const start = inputReader.getDateStart(this.now);
                 const end = inputReader.getDateEnd(this.now);
@@ -46,10 +50,10 @@ module.exports = function(RED) {
                 ResultProcessor.sendMessage(this, msg, outputIndex);
 
                 const successText = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-                ResultProcessor.setStatusSuccess(this, successText, isWithinRange);
+                ResultProcessor.setStatusSuccess(this, successText, isWithinRange, this.now);
             }
             catch (e) {
-                ResultProcessor.setStatusFailed(this, e.message);
+                ResultProcessor.setStatusFailed(this, e.message, this.now);
             }
         });
     });
