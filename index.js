@@ -50,10 +50,10 @@ module.exports = function(RED) {
                 ResultProcessor.sendMessage(this, msg, outputIndex);
 
                 const successText = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-                ResultProcessor.setStatusSuccess(this, successText, isWithinRange, this.now);
+                ResultProcessor.setStatusSuccess(this, successText, isWithinRange);
             }
             catch (e) {
-                ResultProcessor.setStatusFailed(this, e.message, this.now);
+                ResultProcessor.setStatusFailed(this, e.message);
             }
         });
     });
