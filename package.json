@@ -3,6 +3,14 @@
     "version": "1.0.7",
     "description": "Routes messages depending on the current time.",
     "main": "index.js",
+	"files": [
+        "/icons",
+		"/screenshots",
+        "/*.js",
+        "/*.html",
+        "/LICENSE",
+        "/README.md"
+    ],
     "keywords": [
         "node-red",
         "router",
