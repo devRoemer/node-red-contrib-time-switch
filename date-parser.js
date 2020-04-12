@@ -42,30 +42,40 @@ class DateParser {
     static getMomentByTime(day, time, format) {
         const parsedTime = moment(time, format);
         if (parsedTime.isValid()) {
-            this.setDateOfParsedTime(day, parsedTime);
-            return parsedTime;
+            return this.createTime(day, parsedTime);
         }
         return null;
-    };
-
-    static setDateOfParsedTime(day, timeMoment) {
-        timeMoment
-            .year(day.year())
-            .month(day.month())
-            .date(day.date());
     };
 
     static getMomentBySunCalcName(day, name, location) {
-        const suncalDate = day.clone().toDate();
-        const sunCalcTimes = SunCalc.getTimes(suncalDate, location.lat, location.lon);
-        const sunCalcTime = sunCalcTimes[name];
+        const sunCalcTime = this.getSunCalcTime(day, name, location);
         if (sunCalcTime) {
-            const parsedTime = moment(sunCalcTime);
-            parsedTime.seconds(0);
-            return parsedTime;
+            const parsedTime = this.convertLocalTimeToTimezone(sunCalcTime, day.utcOffset());
+            return this.createTime(day, parsedTime);
         }
         return null;
     };
+
+    static getSunCalcTime(day, name, location) {
+        const midDay = day.clone().startOf('day').add(12, 'hours');
+        const sunCalcTimes = SunCalc.getTimes(midDay, location.lat, location.lon);
+        return sunCalcTimes[name];
+    }
+
+    static createTime(day, time) {
+        const hour = time.get('hour');
+        const minute = time.get('minute');
+        const seconds = 0;
+
+        const result = day.clone().set({hour, minute, seconds});
+        return result;
+    };
+
+    static convertLocalTimeToTimezone(time, offset) {
+        const utcTime = moment.utc(time);
+        const result = utcTime.utcOffset(offset);
+        return result;
+    }
 }
 
 module.exports = DateParser;

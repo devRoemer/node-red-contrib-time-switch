@@ -39,37 +39,37 @@ describe('input-reader', function() {
         let day = null;
         let reader = null;
         before(function() {
-            day = moment('2019-11-21');
+            day = moment.parseZone('2019-11-21 00:00:00+01:00');
             const config = { lat: 51.33411, lon: -0.83716 };
             reader = new InputReader('testmessage', null, config);
         });
         it('should add offset', function() {
             const result = reader.timeToMoment(day, '12:00', 10);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:10:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T12:10:00+01:00');
         });
         it('should subtract negative offset', function() {
             const result = reader.timeToMoment(day, '12:00', -10);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T11:50:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T11:50:00+01:00');
         });
         it('should not change date with offset 0', function() {
             const result = reader.timeToMoment(day, '12:00', 0);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T12:00:00+01:00');
         });
         it('should add offset to suncal names', function() {
             const result = reader.timeToMoment(day, 'goldenHour', 5);
-            moment.utc(result).format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-20T15:21:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T16:19:00+01:00');
         });
         it('should not change date with offset null', function() {
             const result = reader.timeToMoment(day, '12:00', null);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T12:00:00+01:00');
         });
         it('should not change date with offset undefined', function() {
             const result = reader.timeToMoment(day, '12:00', undefined);
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T12:00:00+01:00');
         });
         it('should not change date with offset invalid', function() {
             const result = reader.timeToMoment(day, '12:00', 'invalid');
-            result.format('YYYY-MM-DDTHH:mm:ss').should.equal('2019-11-21T12:00:00');
+            result.format('YYYY-MM-DDTHH:mm:ssZ').should.equal('2019-11-21T12:00:00+01:00');
         });
         it('should throw exception if time is empty', function() {
             assert.throws(() => reader.timeToMoment(day, '', 0), Error);

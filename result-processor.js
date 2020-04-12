@@ -33,29 +33,19 @@ class ResultProcessor {
         nrModule.send(messageContainer);
     };
 
-    static setStatusFailed(nrModule, stateText)  {
+    static setStatusFailed(nrModule, stateText, now)  {
         nrModule.status({
             fill: 'red',
             shape: 'ring',
-            text: `${stateText} at: ${ResultProcessor.getStatusTextDate()}`
+            text: `${stateText} at: ${now.format('MMM Do HH:mm')}`
         });
     };
 
-    static setStatusSuccess(nrModule, stateText, isConditionMet) {
+    static setStatusSuccess(nrModule, stateText, isConditionMet, now) {
         nrModule.status({
             fill: 'green',
             shape: isConditionMet ? 'dot' : 'ring',
-            text: `${stateText} at: ${ResultProcessor.getStatusTextDate()}`
-        });
-    }
-
-    static getStatusTextDate() {
-        return new Date().toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            hour12: false,
-            hour: 'numeric',
-            minute: 'numeric'
+            text: `${stateText} at: ${now.format('MMM Do HH:mm')}`
         });
     }
 }

@@ -49,11 +49,11 @@ module.exports = function(RED) {
                 const outputIndex = isWithinRange ? 0 : 1;
                 ResultProcessor.sendMessage(this, msg, outputIndex);
 
-                const successText = `${start.format('HH:mm')} - ${end.format('HH:mm')}`;
-                ResultProcessor.setStatusSuccess(this, successText, isWithinRange);
+                const successText = `${start.format('MMM Do HH:mm')} - ${end.format('MMM Do HH:mm')}`;
+                ResultProcessor.setStatusSuccess(this, successText, isWithinRange, this.now);
             }
             catch (e) {
-                ResultProcessor.setStatusFailed(this, e.message);
+                ResultProcessor.setStatusFailed(this, e.message, this.now);
             }
         });
     });

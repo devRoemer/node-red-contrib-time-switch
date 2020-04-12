@@ -26,6 +26,7 @@
  THE SOFTWARE.
  */
 
+const moment = require('moment');
 const should = require('should');
 const mock = require('node-red-contrib-mock-node');
 
@@ -34,6 +35,10 @@ const nodeRedModule = require('../index.js');
 
 // eslint-disable-next-line max-lines-per-function
 describe('result-processor', function() {
+    let day = null;
+    before(function() {
+        day = moment.parseZone('2019-11-21 18:10:03+02:00');
+    });
     describe('sendMessage', function() {
         it('should send to output 1', function() {
             const node = mock(nodeRedModule, {});
@@ -59,22 +64,22 @@ describe('result-processor', function() {
         it('should set icon for met condition', function() {
             const node = mock(nodeRedModule, {});
 
-            ResultProcessor.setStatusSuccess(node, 'successText', true);
+            ResultProcessor.setStatusSuccess(node, 'successText', true, day);
             const result = node.status();
 
             result.fill.should.equal('green');
             result.shape.should.equal('dot');
-            result.text.should.startWith('successText');
+            result.text.should.equal('successText at: Nov 21st 18:10');
         });
         it('should set icon for not met condition', function() {
             const node = mock(nodeRedModule, {});
 
-            ResultProcessor.setStatusSuccess(node, 'successText', false);
+            ResultProcessor.setStatusSuccess(node, 'successText', false, day);
             const result = node.status();
 
             result.fill.should.equal('green');
             result.shape.should.equal('ring');
-            result.text.should.startWith('successText');
+            result.text.should.equal('successText at: Nov 21st 18:10');
         });
     });
 
@@ -82,12 +87,12 @@ describe('result-processor', function() {
         it('should set status failed', function() {
             const node = mock(nodeRedModule, {});
 
-            ResultProcessor.setStatusFailed(node, 'failureText');
+            ResultProcessor.setStatusFailed(node, 'failureText', day);
             const result = node.status();
 
             result.fill.should.equal('red');
             result.shape.should.equal('ring');
-            result.text.should.startWith('failureText');
+            result.text.should.equal('failureText at: Nov 21st 18:10');
         });
     });
 });

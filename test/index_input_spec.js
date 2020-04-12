@@ -41,11 +41,11 @@ describe('index', function() {
             // arrange
             const node = mock(nodeRedModule, {
                 startTime: '08:00',
-                endTime: '{{flow.flowKey}}',
+                endTime: '10:00',
                 startOffset: 1,
                 endOffset: 2,
-                lat: 51.33411,
-                lon: -0.83716,
+                lat: 52.5192,
+                lon: 13.4061,
                 unitTest: true
             });
 
@@ -87,7 +87,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.getCurrentDate = function() { return moment('2019-03-22 09:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 09:00:00+02:00'); }
         
             // act
             node.emit('input', {});
@@ -99,7 +99,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('dot');
-            status.text.should.startWith('08:01 - 10:02')
+            status.text.should.equal('Apr 12th 08:01 - Apr 12th 10:02 at: Apr 12th 09:00')
         });
         it('should run through entire process (outside range)', function() {
             // arrange
@@ -128,7 +128,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 11:00:00+02:00'); }
 
             // act
             node.emit('input', {});
@@ -140,7 +140,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('ring');
-            status.text.should.startWith('08:01 - 10:02')
+            status.text.should.startWith('Apr 13th 08:01 - Apr 13th 10:02 at: Apr 12th 11:00')
         });
         it('should run through entire process with suncalc (within range)', function() {
             // arrange
@@ -169,7 +169,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 11:00:00+02:00'); }
 
             // act
             node.emit('input', {});
@@ -181,7 +181,7 @@ describe('index', function() {
             const status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('dot');
-            /(\d+):(\d+) - (\d+):(\d+)/.test(status.text).should.be.true();
+            status.text.should.equal('Apr 12th 08:01 - Apr 12th 20:12 at: Apr 12th 11:00'); // TODO: Verify
         });
         it('should get red with invalid dates', function() {
             // arrange
@@ -210,7 +210,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 11:00:00+02:00'); }
         
             // act
             node.emit('input', {});
@@ -246,7 +246,7 @@ describe('index', function() {
             node.send = function(msg) {
                 result = msg;
             };
-            node.getCurrentDate = function() { return moment('2019-03-22 09:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 09:00:00+02:00'); }
         
             // act
             node.emit('input', {});
@@ -258,10 +258,10 @@ describe('index', function() {
             let status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('dot');
-            status.text.should.startWith('08:00 - 10:00')
+            status.text.should.equal('Apr 12th 08:00 - Apr 12th 10:00 at: Apr 12th 09:00')
 
             // arrange - changed time
-            node.getCurrentDate = function() { return moment('2019-03-22 11:00:00'); }
+            node.getCurrentDate = function() { return moment.parseZone('2020-04-12 11:00:00+02:00'); }
 
             // act
             node.emit('input', {});
@@ -270,7 +270,7 @@ describe('index', function() {
             status = node.status();
             status.fill.should.equal('green');
             status.shape.should.equal('ring');
-            status.text.should.startWith('08:00 - 10:00')
+            status.text.should.equal('Apr 13th 08:00 - Apr 13th 10:00 at: Apr 12th 11:00')
         });
     });
 });
