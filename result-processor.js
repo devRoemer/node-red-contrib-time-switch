@@ -3,7 +3,7 @@
 /**
  The MIT License (MIT)
 
- Copyright (c) 2019 @huzergackl
+ Copyright (c) 2020 @devRoemer
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ class ResultProcessor {
         messageContainer[outputIndex] = message;
 
         nrModule.send(messageContainer);
-    };
+    }
 
     static setStatusFailed(nrModule, stateText, now)  {
         nrModule.status({
@@ -39,7 +39,7 @@ class ResultProcessor {
             shape: 'ring',
             text: `${stateText} at: ${now.format('MMM Do HH:mm')}`
         });
-    };
+    }
 
     static setStatusSuccess(nrModule, stateText, isConditionMet, now) {
         nrModule.status({

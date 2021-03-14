@@ -1,0 +1,27 @@
+---
+name: CI
+
+# yamllint disable-line rule:truthy
+on:
+  push:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+  workflow_dispatch:
+
+jobs:
+  unit-test:
+    name: Run unit tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⤵️ Check out code from GitHub
+        uses: actions/checkout@v2.3.4
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
+        with:
+          # this will use the latest Node 12 version
+          node-version: 12.x
+      - run: "npm run-script test-report"
+      - run: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"

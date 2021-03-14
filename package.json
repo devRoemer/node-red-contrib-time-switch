@@ -3,9 +3,9 @@
     "version": "1.0.8",
     "description": "Routes messages depending on the current time.",
     "main": "index.js",
-	"files": [
+    "files": [
         "/icons",
-		"/screenshots",
+        "/screenshots",
         "/*.js",
         "/*.html",
         "/LICENSE",
@@ -22,7 +22,7 @@
         "test": "nyc mocha",
         "test-report": "nyc --reporter=html --reporter=text --reporter=lcov mocha"
     },
-    "author": "@huzergackl",
+    "author": "@devRoemer",
     "license": "MIT",
     "dependencies": {
         "moment": "^2.24.0",
@@ -37,20 +37,20 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/huzergackl/node-red-contrib-time-switch"
+        "url": "https://github.com/devRoemer/node-red-contrib-time-switch"
     },
     "bugs": {
-        "url": "https://github.com/huzergackl/node-red-contrib-time-switch/issues"
+        "url": "https://github.com/devRoemer/node-red-contrib-time-switch/issues"
     },
     "devDependencies": {
         "coveralls": "^3.0.11",
-        "eslint": "^6.8.0",
+        "eslint": "^7.22.0",
         "eslint-config-biddster": "^0.6.0",
-        "eslint-config-prettier": "^6.10.1",
-        "mocha": "^7.1.1",
-        "node-red-contrib-mock-node": "^0.4.0",
+        "eslint-config-prettier": "^8.1.0",
+        "mocha": "^8.3.2",
+        "node-red-contrib-mock-node": "^0.5.0",
         "nyc": "^15.0.1",
-        "prettier": "^2.0.4",
+        "prettier": "^2.2.1",
         "should": "^13.2.3"
     },
     "eslintConfig": {

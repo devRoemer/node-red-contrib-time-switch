@@ -3,7 +3,7 @@
 /**
  The MIT License (MIT)
 
- Copyright (c) 2019 @huzergackl
+ Copyright (c) 2020 @devRoemer
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -29,7 +29,7 @@ const moment = require('moment');
 class DateUtils {
     static getCurrent() {
         return moment();
-    };
+    }
 }
 
 module.exports = DateUtils;

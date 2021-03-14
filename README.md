@@ -5,26 +5,26 @@
 [![Maintainability][codeclimate-image]][codeclimate-url]
 
 [maintenance-image]:https://img.shields.io/badge/Maintained%3F-yes-green.svg
-[maintenance-url]:https://github.com/huzergackl/node-red-contrib-time-switch/graphs/commit-activity
-[travis-image]:https://travis-ci.com/huzergackl/node-red-contrib-time-switch.svg?branch=master
-[travis-url]:https://travis-ci.com/huzergackl/node-red-contrib-time-switch
-[coveralls-image]:https://coveralls.io/repos/github/huzergackl/node-red-contrib-time-switch/badge.svg?branch=master
-[coveralls-url]:https://coveralls.io/github/huzergackl/node-red-contrib-time-switch?branch=master
-[david-image]:https://david-dm.org/huzergackl/node-red-contrib-time-switch.svg
-[david-url]:https://david-dm.org/huzergackl/node-red-contrib-time-switch
-[codeclimate-image]:https://img.shields.io/codeclimate/maintainability/huzergackl/node-red-contrib-time-switch
-[codeclimate-url]:https://codeclimate.com/github/huzergackl/node-red-contrib-time-switch
+[maintenance-url]:https://github.com/devRoemer/node-red-contrib-time-switch/graphs/commit-activity
+[travis-image]:https://travis-ci.com/devRoemer/node-red-contrib-time-switch.svg?branch=master
+[travis-url]:https://travis-ci.com/devRoemer/node-red-contrib-time-switch
+[coveralls-image]:https://coveralls.io/repos/github/devRoemer/node-red-contrib-time-switch/badge.svg?branch=master
+[coveralls-url]:https://coveralls.io/github/devRoemer/node-red-contrib-time-switch?branch=master
+[david-image]:https://david-dm.org/devRoemer/node-red-contrib-time-switch.svg
+[david-url]:https://david-dm.org/devRoemer/node-red-contrib-time-switch
+[codeclimate-image]:https://img.shields.io/codeclimate/maintainability/devRoemer/node-red-contrib-time-switch
+[codeclimate-url]:https://codeclimate.com/github/devRoemer/node-red-contrib-time-switch
 
 
 ## Node-RED Time Switch (Contribution package)
 
 A simple Node-RED node that routes messages depending on the time or sun position.
 
-![Node](https://raw.githubusercontent.com/huzergackl/node-red-contrib-time-switch/master/screenshots/screenshot_node.png)
+![Node](https://raw.githubusercontent.com/devRoemer/node-red-contrib-time-switch/master/screenshots/screenshot_node.png)
 
 It is possible to specify a time, the sun position (requires your geo location to be configured) or even a value of the message, the flow or the instance of node red.
 
-![Config](https://raw.githubusercontent.com/huzergackl/node-red-contrib-time-switch/master/screenshots/screenshot_config.png)
+![Config](https://raw.githubusercontent.com/devRoemer/node-red-contrib-time-switch/master/screenshots/screenshot_config.png)
 
 
 ### Installation

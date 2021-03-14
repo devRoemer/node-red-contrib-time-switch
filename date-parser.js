@@ -3,7 +3,7 @@
 /**
  The MIT License (MIT)
 
- Copyright (c) 2019 @huzergackl
+ Copyright (c) 2020 @devRoemer
 
  Permission is hereby granted, free of charge, to any person obtaining a copy
  of this software and associated documentation files (the "Software"), to deal
@@ -37,7 +37,7 @@ class DateParser {
         }
 
         return this.getMomentBySunCalcName(day, time, location);
-    };
+    }
 
     static getMomentByTime(day, time, format) {
         const parsedTime = moment(time, format);
@@ -45,7 +45,7 @@ class DateParser {
             return this.createTime(day, parsedTime);
         }
         return null;
-    };
+    }
 
     static getMomentBySunCalcName(day, name, location) {
         const sunCalcTime = this.getSunCalcTime(day, name, location);
@@ -54,7 +54,7 @@ class DateParser {
             return this.createTime(day, parsedTime);
         }
         return null;
-    };
+    }
 
     static getSunCalcTime(day, name, location) {
         const midDay = day.clone().startOf('day').add(12, 'hours');
@@ -69,7 +69,7 @@ class DateParser {
 
         const result = day.clone().set({hour, minute, seconds});
         return result;
-    };
+    }
 
     static convertLocalTimeToTimezone(time, offset) {
         const utcTime = moment.utc(time);
