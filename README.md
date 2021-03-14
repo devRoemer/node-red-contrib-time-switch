@@ -26,8 +26,6 @@ It is possible to specify a time, the sun position (requires your geo location t
 
 ![Config](https://raw.githubusercontent.com/huzergackl/node-red-contrib-time-switch/master/screenshots/screenshot_config.png)
 
-This is basically a rewrite of biddsters module node-red-contrib-time-range-switch. It has the same features with additional fixes and features. Thanks [@biddster](https://github.com/biddster/node-red-contrib-time-range-switch) for providing the base for this plugin.
-
 
 ### Installation
  
