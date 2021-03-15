@@ -1,19 +1,25 @@
+![Project Stage][project-stage-shield]
+[![License][license-shield]](LICENSE)
+
+[![Build Status][ci-image]][ci-url]
 [![Maintenance][maintenance-image]][maintenance-url] 
-[![Build Status][travis-image]][travis-url] 
+ 
+[![Maintainability][codeclimate-image]][codeclimate-url]
 [![Coverage Status][coveralls-image]][coveralls-url] 
 [![Dependencies Status][david-image]][david-url]
-[![Maintainability][codeclimate-image]][codeclimate-url]
 
+[project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
+[license-shield]: https://img.shields.io/github/license/devRoemer/node-red-contrib-time-switch.svg
 [maintenance-image]:https://img.shields.io/badge/Maintained%3F-yes-green.svg
 [maintenance-url]:https://github.com/devRoemer/node-red-contrib-time-switch/graphs/commit-activity
-[travis-image]:https://travis-ci.com/devRoemer/node-red-contrib-time-switch.svg?branch=master
-[travis-url]:https://travis-ci.com/devRoemer/node-red-contrib-time-switch
+[ci-image]:https://github.com/devRoemer/node-red-contrib-time-switch/workflows/CI/badge.svg
+[ci-url]:https://github.com/devRoemer/node-red-contrib-time-switch/actions
 [coveralls-image]:https://coveralls.io/repos/github/devRoemer/node-red-contrib-time-switch/badge.svg?branch=master
 [coveralls-url]:https://coveralls.io/github/devRoemer/node-red-contrib-time-switch?branch=master
 [david-image]:https://david-dm.org/devRoemer/node-red-contrib-time-switch.svg
 [david-url]:https://david-dm.org/devRoemer/node-red-contrib-time-switch
-[codeclimate-image]:https://img.shields.io/codeclimate/maintainability/devRoemer/node-red-contrib-time-switch
-[codeclimate-url]:https://codeclimate.com/github/devRoemer/node-red-contrib-time-switch
+[codeclimate-image]:https://api.codeclimate.com/v1/badges/177b8f6474cc7ae287a5/maintainability
+[codeclimate-url]:https://codeclimate.com/github/devRoemer/node-red-contrib-time-switch/maintainability
 
 
 ## Node-RED Time Switch (Contribution package)
