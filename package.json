@@ -1,6 +1,6 @@
 {
     "name": "node-red-contrib-time-switch",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Routes messages depending on the current time.",
     "main": "index.js",
     "files": [
