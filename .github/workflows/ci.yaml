@@ -23,5 +23,6 @@ jobs:
         with:
           # this will use the latest Node 12 version
           node-version: 12.x
+      - run: "npm install"
       - run: "npm run-script test-report"
       - run: "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
