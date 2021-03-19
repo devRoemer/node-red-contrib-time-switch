@@ -84,4 +84,80 @@ describe('input-reader', function() {
             assert.throws(() => reader.timeToMoment(day, 'invalid', 0), Error);
         });
     });
+
+    // eslint-disable-next-line max-lines-per-function
+    describe('getLocation', function() {
+        let reader = null;
+        let config = null;
+        before(function() {
+            config = { };
+            reader = new InputReader({payload: 'testmessage', field1: 51.33411, field2: -0.83716}, null, config);
+        });
+        it('should get correct location', function() {
+            config.lat = 51.33411;
+            config.lon = -0.83716
+            const result = reader.getLocation();
+            result.lat.should.equal(51.33411);
+            result.lon.should.equal(-0.83716);
+        });
+        it('should parse location from message', function() {
+            config.lat = "{{msg.field1}}";
+            config.lon = "{{msg.field2}}";
+            const result = reader.getLocation();
+            result.lat.should.equal(51.33411);
+            result.lon.should.equal(-0.83716);
+        });
+        it('should throw exception if geo is empty', function() {
+            config.lat = '';
+            config.lon = -0.83716;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = 51.33411;
+            config.lon = '';
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = '';
+            config.lon = '';
+            assert.throws(() => reader.getLocation(), Error);
+        });
+        it('should throw exception if geo is null', function() {
+            config.lat = null;
+            config.lon = -0.83716;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = 51.33411;
+            config.lon = null;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = null;
+            config.lon = null;
+            assert.throws(() => reader.getLocation(), Error);
+        });
+        it('should throw exception if geo is undefined', function() {
+            config.lat = undefined;
+            config.lon = -0.83716;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = 51.33411;
+            config.lon = undefined;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = undefined;
+            config.lon = undefined;
+            assert.throws(() => reader.getLocation(), Error);
+        });
+        it('should throw exception if geo is invalid', function() {
+            config.lat = 'invalid';
+            config.lon = -0.83716;
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = 51.33411;
+            config.lon = 'invalid';
+            assert.throws(() => reader.getLocation(), Error);
+
+            config.lat = 'invalid';
+            config.lon = 'invalid';
+            assert.throws(() => reader.getLocation(), Error);
+        });
+    });
 });

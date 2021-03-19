@@ -2,10 +2,10 @@
 [![License][license-shield]](LICENSE)
 
 [![Build Status][ci-image]][ci-url]
-[![Maintenance][maintenance-image]][maintenance-url] 
- 
+[![Maintenance][maintenance-image]][maintenance-url]
+
 [![Maintainability][codeclimate-image]][codeclimate-url]
-[![Coverage Status][coveralls-image]][coveralls-url] 
+[![Coverage Status][coveralls-image]][coveralls-url]
 [![Dependencies Status][david-image]][david-url]
 
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
@@ -21,7 +21,6 @@
 [codeclimate-image]:https://api.codeclimate.com/v1/badges/177b8f6474cc7ae287a5/maintainability
 [codeclimate-url]:https://codeclimate.com/github/devRoemer/node-red-contrib-time-switch/maintainability
 
-
 ## Node-RED Time Switch (Contribution package)
 
 A simple Node-RED node that routes messages depending on the time or sun position.
@@ -32,18 +31,15 @@ It is possible to specify a time, the sun position (requires your geo location t
 
 ![Config](https://raw.githubusercontent.com/devRoemer/node-red-contrib-time-switch/master/screenshots/screenshot_config.png)
 
-
 ### Installation
- 
+
 Change directory to your node red installation and run the following command:
 
 [![NPM](https://nodei.co/npm/node-red-contrib-time-switch.png)](https://nodei.co/npm/node-red-contrib-time-switch/)
 
- 
-### Configuration 
-    
-The times can be a 24 hour time or a [suncalc](https://github.com/mourner/suncalc) event:
+### Configuration
 
+The times can be a 24 hour time or a [suncalc](https://github.com/mourner/suncalc) event:
 
 | Time        | Description                                                              |
 | --------------- | ------------------------------------------------------------------------ |
@@ -73,5 +69,24 @@ Placeholders with prefix msg, flow or global are replaced by the corresponding f
 The start and end time can have an offset. You can use fields here aswell.
 
 This is specified in minutes:
+
 - Negative numbers are bringing the time back. E.g. if the time is dusk and offset is -60, the start time will be 60 minutes before dusk.
 - Positive numbers are delaying the time by the specified number of minutes
+
+The offset also supports placeholders:
+
+| Placeholder        | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| `{{msg.fieldName}}`       | Access a field of the message (mustache template syntax)       |
+| `{{flow.fieldName}}`       | Access a field of the flow (mustache template syntax)       |
+| `{{global.fieldName}}`       | Access a global field (mustache template syntax)       |
+
+### Geo location
+
+Specify the latitude and longitude of your geo location or use one of the followng placeolders as value:
+
+| Placeholder        | Description                                                              |
+| --------------- | ------------------------------------------------------------------------ |
+| `{{msg.fieldName}}`       | Access a field of the message (mustache template syntax)       |
+| `{{flow.fieldName}}`       | Access a field of the flow (mustache template syntax)       |
+| `{{global.fieldName}}`       | Access a global field (mustache template syntax)       |

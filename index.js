@@ -23,13 +23,12 @@
  THE SOFTWARE.
  */
 
+ const InputReader = require('./input-reader');
+ const DateComparator = require('./date-comparator');
+ const ResultProcessor = require('./result-processor');
+ const DateUtils = require('./date-utils');
+
 module.exports = function(RED) {
-
-    const InputReader = require('./input-reader');
-    const DateComparator = require('./date-comparator');
-    const ResultProcessor = require('./result-processor');
-    const DateUtils = require('./date-utils');
-
     RED.nodes.registerType('time-switch', function(config) {
         RED.nodes.createNode(this, config);
 

@@ -32,7 +32,6 @@ class InputReader {
     constructor(message, context, config) {
         this.message = message;
         this.config = config;
-        this.geoLocation = { lat: config.lat, lon: config.lon };
 
         this.placeholderParser = new PlaceholderParser(message, context);
     }
@@ -47,7 +46,8 @@ class InputReader {
 
     timeToMoment(day, timeString, offset) {
         const parsedTime = this.placeholderParser.getParsedValue(timeString);
-        const parsedMoment = DateParser.timeToMoment(day, parsedTime, this.geoLocation);
+        const geoLocation = this.getLocation();
+        const parsedMoment = DateParser.timeToMoment(day, parsedTime, geoLocation);
 
         if (!parsedMoment) {
             throw new Error(`'${parsedTime}' is no valid time`);
@@ -56,6 +56,17 @@ class InputReader {
         const parsedOffset = this.placeholderParser.getParsedValue(offset);
         parsedMoment.add(parsedOffset, 'minutes');
         return parsedMoment;
+    }
+
+    getLocation() {
+        const parsedLat = this.placeholderParser.getParsedValue(this.config.lat);
+        const parsedLon = this.placeholderParser.getParsedValue(this.config.lon);
+
+        if (!parsedLat || !parsedLon || isNaN(parsedLat) || isNaN(parsedLon)) {
+            throw new Error(`Geo location lat: '${parsedLat}', lon: '${parsedLon}' is not valid`);
+        }
+
+        return { lat: parseFloat(parsedLat), lon: parseFloat(parsedLon) };
     }
 
 }
