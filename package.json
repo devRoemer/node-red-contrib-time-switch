@@ -27,7 +27,7 @@
     "dependencies": {
         "moment": "^2.29.1",
         "moment-range": "^4.0.2",
-        "mustache": "^4.1.0",
+        "mustache": "^4.2.0",
         "suncalc2": "^1.8.1"
     },
     "node-red": {
