@@ -7,6 +7,8 @@
 [![Maintainability][codeclimate-image]][codeclimate-url]
 [![Coverage Status][coveralls-image]][coveralls-url]
 [![Dependencies Status][david-image]][david-url]
+[![Known Vulnerabilities](https://snyk.io/test/github/devroemer/node-red-contrib-time-switch/badge.svg)](https://snyk.io/test/github/devroemer/node-red-contrib-time-switch)
+
 
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-stable-green.svg
 [license-shield]: https://img.shields.io/github/license/devRoemer/node-red-contrib-time-switch.svg
