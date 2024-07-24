@@ -1,0 +1,84 @@
+[
+    {
+        "id": "f6f2187d.f17ca8",
+        "type": "tab",
+        "label": "Example-Flow",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "5807e21a187c64ef",
+        "type": "inject",
+        "z": "f6f2187d.f17ca8",
+        "name": "Start",
+        "props": [],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 90,
+        "y": 160,
+        "wires": [
+            [
+                "1a6cf1049ca69de0"
+            ]
+        ]
+    },
+    {
+        "id": "1a6cf1049ca69de0",
+        "type": "time-switch",
+        "z": "f6f2187d.f17ca8",
+        "name": "",
+        "lat": "38.322151",
+        "lon": "-0.513703",
+        "startTime": "07:28",
+        "endTime": "goldenHour",
+        "startOffset": 0,
+        "endOffset": 0,
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "020b98863791648b"
+            ],
+            [
+                "5ac8121f8a73874b"
+            ]
+        ]
+    },
+    {
+        "id": "020b98863791648b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Within time action",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 530,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "5ac8121f8a73874b",
+        "type": "debug",
+        "z": "f6f2187d.f17ca8",
+        "name": "Outside of time action",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 540,
+        "y": 200,
+        "wires": []
+    }
+]

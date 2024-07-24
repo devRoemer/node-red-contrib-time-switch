@@ -31,9 +31,13 @@
         "suncalc2": "^1.8.1"
     },
     "node-red": {
+        "version": ">=3.0.0",
         "nodes": {
             "time-range-switch": "index.js"
         }
+    },
+    "engines": {
+        "node": ">=14.0"
     },
     "repository": {
         "type": "git",
@@ -47,7 +51,7 @@
         "eslint": "^8.57.0",
         "eslint-config-biddster": "^0.6.0",
         "eslint-config-prettier": "^8.10.0",
-        "mocha": "^10.6.0",
+        "mocha": "^10.7.0",
         "node-red-contrib-mock-node": "^0.5.3",
         "nyc": "^15.1.0",
         "prettier": "^2.8.8",
