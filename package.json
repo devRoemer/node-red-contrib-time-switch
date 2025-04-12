@@ -4,6 +4,7 @@
     "description": "Routes messages depending on the current time.",
     "main": "index.js",
     "files": [
+        "/examples",
         "/icons",
         "/screenshots",
         "/*.js",
