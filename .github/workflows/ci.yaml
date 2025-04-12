@@ -18,11 +18,10 @@ jobs:
     steps:
       - name: ⤵️ Check out code from GitHub
         uses: actions/checkout@v2.3.4
-      - name: Use Node.js 12.x
+      - name: Use Node.js 20.x
         uses: actions/setup-node@v1
         with:
-          # this will use the latest Node 12 version
-          node-version: 12.x
+          node-version: 20.x
       - run: "npm install"
       - run: "npm run-script test-report"
       - name: Coveralls
